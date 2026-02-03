@@ -10,6 +10,8 @@ from app.models.user import SubscriptionUserResponse, UserResponse
 from app.subscription.share import encode_title, generate_subscription
 from app.templates import render_template
 from config import (
+    SUB_ANNOUNCE,
+    SUB_ANNOUNCE_URL,
     SUB_PROFILE_TITLE,
     SUB_SUPPORT_URL,
     SUB_UPDATE_INTERVAL,
@@ -77,6 +79,10 @@ def user_subscription(
             for key, val in get_subscription_user_info(user).items()
         )
     }
+    if SUB_ANNOUNCE:
+        response_headers["announce"] = encode_title(SUB_ANNOUNCE)
+    if SUB_ANNOUNCE_URL:
+        response_headers["announce-url"] = SUB_ANNOUNCE_URL
 
     if re.match(r'^([Cc]lash-verge|[Cc]lash[-\.]?[Mm]eta|[Ff][Ll][Cc]lash|[Mm]ihomo)', user_agent):
         conf = generate_subscription(user=user, config_format="clash-meta", as_base64=False, reverse=False)
@@ -184,6 +190,10 @@ def user_subscription_with_client_type(
             for key, val in get_subscription_user_info(user).items()
         )
     }
+    if SUB_ANNOUNCE:
+        response_headers["announce"] = encode_title(SUB_ANNOUNCE)
+    if SUB_ANNOUNCE_URL:
+        response_headers["announce-url"] = SUB_ANNOUNCE_URL
 
     config = client_config.get(client_type)
     conf = generate_subscription(user=user,
