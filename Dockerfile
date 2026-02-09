@@ -38,7 +38,8 @@ COPY --from=build /usr/local/share/xray /usr/local/share/xray
 COPY . /code
 COPY --from=dashboard-build /code/app/dashboard/build /code/app/dashboard/build
 
-RUN ln -s /code/marzban-cli.py /usr/bin/marzban-cli \
+RUN pip install --no-cache-dir "setuptools>=73" \
+    && ln -s /code/marzban-cli.py /usr/bin/marzban-cli \
     && chmod +x /usr/bin/marzban-cli
 
 CMD ["bash", "-c", "alembic upgrade head; python main.py"]
