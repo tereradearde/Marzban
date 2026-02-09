@@ -1,5 +1,14 @@
 ARG PYTHON_VERSION=3.12
 
+FROM node:20-slim AS dashboard-build
+WORKDIR /code/app/dashboard
+COPY app/dashboard/package*.json ./
+RUN npm ci
+COPY app/dashboard/ ./
+ENV VITE_BASE_API=/api/
+RUN npm run build -- --outDir build --assetsDir statics \
+    && cp build/index.html build/404.html
+
 FROM python:$PYTHON_VERSION-slim AS build
 
 ENV PYTHONUNBUFFERED=1
@@ -27,6 +36,7 @@ COPY --from=build /usr/local/bin /usr/local/bin
 COPY --from=build /usr/local/share/xray /usr/local/share/xray
 
 COPY . /code
+COPY --from=dashboard-build /code/app/dashboard/build /code/app/dashboard/build
 
 RUN ln -s /code/marzban-cli.py /usr/bin/marzban-cli \
     && chmod +x /usr/bin/marzban-cli \
