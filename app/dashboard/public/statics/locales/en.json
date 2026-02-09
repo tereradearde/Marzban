@@ -188,6 +188,8 @@
   "usersTable.copyConfigs": "Copy Configs",
   "usersTable.copyLink": "Copy Subscription Link",
   "usersTable.dataUsage": "data usage",
+  "usersTable.ipLimit": "IP limit",
+  "usersTable.ipLimitUnlimited": "—",
   "usersTable.noUser": "There is no user added to the system",
   "usersTable.noUserMatched": "It seems there is no user matched with what you are looking for",
   "usersTable.status": "status",

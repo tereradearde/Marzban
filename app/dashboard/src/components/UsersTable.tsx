@@ -436,6 +436,12 @@ export const UsersTable: FC<UsersTableProps> = (props) => {
                                   />
                                 </Box>
                               </VStack>
+                              <HStack w="full" fontSize="xs" color="gray.600" _dark={{ color: "gray.400" }}>
+                                <Text fontWeight="bold">{t("usersTable.ipLimit")}:</Text>
+                                <Text>
+                                  {user.ip_limit != null && user.ip_limit > 0 ? user.ip_limit : t("usersTable.ipLimitUnlimited")}
+                                </Text>
+                              </HStack>
                               <HStack w="full" justifyContent="space-between">
                                 <Box width="full">
                                   <StatusBadge
@@ -574,6 +580,14 @@ export const UsersTable: FC<UsersTableProps> = (props) => {
             <Th
               position="sticky"
               top={{ base: "unset", md: top }}
+              width="90px"
+              minW="80px"
+            >
+              {t("usersTable.ipLimit")}
+            </Th>
+            <Th
+              position="sticky"
+              top={{ base: "unset", md: top }}
               width="200px"
               minW="180px"
             />
@@ -612,15 +626,20 @@ export const UsersTable: FC<UsersTableProps> = (props) => {
                       colorScheme={statusColors[user.status].bandWidthColor}
                     />
                   </Td>
+                  <Td width="90px" minW="80px" fontSize="sm">
+                    {user.ip_limit != null && user.ip_limit > 0
+                      ? user.ip_limit
+                      : "—"}
+                  </Td>
                   <Td width="200px" minW="180px">
                     <ActionButtons user={user} />
                   </Td>
                 </Tr>
               );
             })}
-          {users.length == 0 && (
-            <Tr>
-              <Td colSpan={4}>
+              {users.length == 0 && (
+                <Tr>
+                  <Td colSpan={5}>
                 <EmptySection isFiltered={isFiltered} />
               </Td>
             </Tr>

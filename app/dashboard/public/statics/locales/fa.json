@@ -194,6 +194,8 @@
   "usersTable.copyConfigs": "تنظیمات کپی",
   "usersTable.copyLink": "کپی لینک اشتراک",
   "usersTable.dataUsage": "مصرف داده",
+  "usersTable.ipLimit": "حد IP",
+  "usersTable.ipLimitUnlimited": "—",
   "usersTable.noUser": "کاربری افزوده نشده است",
   "usersTable.noUserMatched": "به‌نظر میرسه کاربری که جستجو کردید، وجود ندارد",
   "usersTable.status": "وضعیت",
