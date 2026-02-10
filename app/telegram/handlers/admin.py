@@ -1975,9 +1975,8 @@ def confirm_user_command(call: types.CallbackQuery):
             cleanup_messages(chat_id)
             bot.send_message(
                 chat_id,
-                f'✅ <b>{counter}/{len(users)} Users</b> Data Limit according to <code>{"+" if data_limit >
-                                                                                       0 else "-"}{readable_size(abs(data_limit))}</code>',
-                'HTML',
+                f'✅ <b>{counter}/{len(users)} Users</b> Data Limit according to <code>{"+" if data_limit > 0 else "-"}{readable_size(abs(data_limit))}</code>',
+                parse_mode='HTML',
                 reply_markup=BotKeyboard.main_menu())
             if TELEGRAM_LOGGER_CHANNEL_ID:
                 text = f"""\
