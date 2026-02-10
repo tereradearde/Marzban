@@ -1,4 +1,4 @@
-ARG PYTHON_VERSION=3.12
+ARG PYTHON_VERSION=3.11
 
 FROM node:20-slim AS dashboard-build
 WORKDIR /code/app/dashboard
