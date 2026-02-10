@@ -682,6 +682,12 @@ def check_subscription_ip_limit(
     return True
 
 
+def clear_user_subscription_ips(db: Session, user_id: int) -> None:
+    """Remove all recorded subscription IPs for the user (e.g. to allow switching device)."""
+    db.execute(delete(UserSubscriptionIP).where(UserSubscriptionIP.user_id == user_id))
+    db.commit()
+
+
 def record_subscription_ip(db: Session, user_id: int, client_ip: str) -> None:
     """Record or refresh last_seen for this user+ip (for ip_limit tracking)."""
     if not client_ip:
