@@ -830,50 +830,42 @@ export const UserDialog: FC<UserDialogProps> = () => {
                 </Alert>
               )}
             </ModalBody>
-            <ModalFooter mt="3" flexWrap="wrap" gap={3}>
-              <HStack
-                flexWrap="wrap"
-                gap={2}
-                flex={{ base: "1 1 100%", sm: "1 1 0" }}
-                minW={0}
-                justifyContent="flex-start"
-              >
-                {isEditing && (
-                  <>
-                    <Tooltip label={t("delete")} placement="top">
-                      <IconButton
-                        aria-label="Delete"
-                        size="sm"
-                        onClick={() => {
-                          onDeletingUser(editingUser);
-                          onClose();
-                        }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip label={t("userDialog.usage")} placement="top">
-                      <IconButton
-                        aria-label="usage"
-                        size="sm"
-                        onClick={handleUsageToggle}
-                      >
-                        <UserUsageIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Button onClick={handleResetUsage} size="sm">
-                      {t("userDialog.resetUsage")}
-                    </Button>
-                    <Button onClick={handleRevokeSubscription} size="sm">
-                      {t("userDialog.revokeSubscription")}
-                    </Button>
-                    <Button onClick={handleClearSubscriptionIps} size="sm">
-                      {t("userDialog.clearSubscriptionIps")}
-                    </Button>
-                  </>
-                )}
-              </HStack>
-              <HStack flexShrink={0} justify="end" w={{ base: "full", sm: "auto" }}>
+            <ModalFooter mt="3" flexDirection="column" alignItems="stretch" gap={3}>
+              {isEditing && (
+                <HStack flexWrap="wrap" gap={2} justifyContent="flex-start">
+                  <Tooltip label={t("delete")} placement="top">
+                    <IconButton
+                      aria-label="Delete"
+                      size="sm"
+                      onClick={() => {
+                        onDeletingUser(editingUser);
+                        onClose();
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip label={t("userDialog.usage")} placement="top">
+                    <IconButton
+                      aria-label="usage"
+                      size="sm"
+                      onClick={handleUsageToggle}
+                    >
+                      <UserUsageIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Button onClick={handleResetUsage} size="sm">
+                    {t("userDialog.resetUsage")}
+                  </Button>
+                  <Button onClick={handleRevokeSubscription} size="sm">
+                    {t("userDialog.revokeSubscription")}
+                  </Button>
+                  <Button onClick={handleClearSubscriptionIps} size="sm">
+                    {t("clearSubscriptionIps.confirm")}
+                  </Button>
+                </HStack>
+              )}
+              <Flex w="full" justify="flex-end">
                 <Button
                   type="submit"
                   size="sm"
@@ -884,7 +876,7 @@ export const UserDialog: FC<UserDialogProps> = () => {
                 >
                   {isEditing ? t("userDialog.editUser") : t("createUser")}
                 </Button>
-              </HStack>
+              </Flex>
             </ModalFooter>
           </form>
         </ModalContent>
