@@ -38,7 +38,7 @@ COPY --from=build /usr/local/share/xray /usr/local/share/xray
 COPY . /code
 COPY --from=dashboard-build /code/app/dashboard/build /code/app/dashboard/build
 
-RUN pip install --no-cache-dir "setuptools>=73" \
+RUN pip install --no-cache-dir "setuptools>=58,<66" \
     && ln -s /code/marzban-cli.py /usr/bin/marzban-cli \
     && chmod +x /usr/bin/marzban-cli
 
