@@ -862,7 +862,7 @@ export const UserDialog: FC<UserDialogProps> = () => {
                       {t("userDialog.revokeSubscription")}
                     </Button>
                     <Button onClick={handleClearSubscriptionIps} size="sm">
-                      {t("clearSubscriptionIps.confirm")}
+                      {t("userDialog.clearSubscriptionIps")}
                     </Button>
                   </HStack>
                 )}
