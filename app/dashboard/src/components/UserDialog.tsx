@@ -830,74 +830,60 @@ export const UserDialog: FC<UserDialogProps> = () => {
                 </Alert>
               )}
             </ModalBody>
-            <ModalFooter mt="3">
+            <ModalFooter mt="3" flexWrap="wrap" gap={3}>
               <HStack
-                justifyContent="space-between"
-                w="full"
-                gap={3}
-                flexDirection={{
-                  base: "column",
-                  sm: "row",
-                }}
+                flexWrap="wrap"
+                gap={2}
+                flex={{ base: "1 1 100%", sm: "1 1 0" }}
+                minW={0}
+                justifyContent="flex-start"
               >
-                <HStack
-                  justifyContent="flex-start"
-                  w={{
-                    base: "full",
-                    sm: "unset",
-                  }}
+                {isEditing && (
+                  <>
+                    <Tooltip label={t("delete")} placement="top">
+                      <IconButton
+                        aria-label="Delete"
+                        size="sm"
+                        onClick={() => {
+                          onDeletingUser(editingUser);
+                          onClose();
+                        }}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip label={t("userDialog.usage")} placement="top">
+                      <IconButton
+                        aria-label="usage"
+                        size="sm"
+                        onClick={handleUsageToggle}
+                      >
+                        <UserUsageIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Button onClick={handleResetUsage} size="sm">
+                      {t("userDialog.resetUsage")}
+                    </Button>
+                    <Button onClick={handleRevokeSubscription} size="sm">
+                      {t("userDialog.revokeSubscription")}
+                    </Button>
+                    <Button onClick={handleClearSubscriptionIps} size="sm">
+                      {t("userDialog.clearSubscriptionIps")}
+                    </Button>
+                  </>
+                )}
+              </HStack>
+              <HStack flexShrink={0} justify="end" w={{ base: "full", sm: "auto" }}>
+                <Button
+                  type="submit"
+                  size="sm"
+                  px="8"
+                  colorScheme="primary"
+                  leftIcon={loading ? <Spinner size="xs" /> : undefined}
+                  disabled={disabled}
                 >
-                  {isEditing && (
-                    <>
-                      <Tooltip label={t("delete")} placement="top">
-                        <IconButton
-                          aria-label="Delete"
-                          size="sm"
-                          onClick={() => {
-                            onDeletingUser(editingUser);
-                            onClose();
-                          }}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip label={t("userDialog.usage")} placement="top">
-                        <IconButton
-                          aria-label="usage"
-                          size="sm"
-                          onClick={handleUsageToggle}
-                        >
-                          <UserUsageIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Button onClick={handleResetUsage} size="sm">
-                        {t("userDialog.resetUsage")}
-                      </Button>
-                      <Button onClick={handleRevokeSubscription} size="sm">
-                        {t("userDialog.revokeSubscription")}
-                      </Button>
-                      <Button onClick={handleClearSubscriptionIps} size="sm">
-                        {t("userDialog.clearSubscriptionIps")}
-                      </Button>
-                    </>
-                  )}
-                </HStack>
-                <HStack
-                  w="full"
-                  maxW={{ md: "50%", base: "full" }}
-                  justify="end"
-                >
-                  <Button
-                    type="submit"
-                    size="sm"
-                    px="8"
-                    colorScheme="primary"
-                    leftIcon={loading ? <Spinner size="xs" /> : undefined}
-                    disabled={disabled}
-                  >
-                    {isEditing ? t("userDialog.editUser") : t("createUser")}
-                  </Button>
-                </HStack>
+                  {isEditing ? t("userDialog.editUser") : t("createUser")}
+                </Button>
               </HStack>
             </ModalFooter>
           </form>
