@@ -367,6 +367,10 @@ export const UserDialog: FC<UserDialogProps> = () => {
     useDashboard.setState({ revokeSubscriptionUser: editingUser });
   };
 
+  const handleClearSubscriptionIps = () => {
+    useDashboard.setState({ clearSubscriptionIpsUser: editingUser });
+  };
+
   const disabled = loading;
   const isOnHold = userStatus === "on_hold";
 
@@ -871,6 +875,9 @@ export const UserDialog: FC<UserDialogProps> = () => {
                       </Button>
                       <Button onClick={handleRevokeSubscription} size="sm">
                         {t("userDialog.revokeSubscription")}
+                      </Button>
+                      <Button onClick={handleClearSubscriptionIps} size="sm">
+                        {t("userDialog.clearSubscriptionIps")}
                       </Button>
                     </>
                   )}

@@ -43,6 +43,7 @@ def add_user(
     - **on_hold_timeout**: UTC timestamp when `on_hold` status should start or end.
     - **on_hold_expire_duration**: Duration (in seconds) for how long the user should stay in `on_hold` status.
     - **next_plan**: Next user plan (resets after use).
+    - **ip_limit**: Max number of different IPs that can use the subscription at once. Omit or 0 = no limit.
     """
 
     # TODO expire should be datetime instead of timestamp
@@ -197,6 +198,18 @@ def revoke_user_subscription(
     logger.info(f'User "{dbuser.username}" subscription revoked')
 
     return user
+
+
+@router.post("/user/{username}/clear_subscription_ips", response_model=UserResponse, responses={403: responses._403, 404: responses._404})
+def clear_subscription_ips(
+    db: Session = Depends(get_db),
+    dbuser: UserResponse = Depends(get_validated_user),
+    admin: Admin = Depends(Admin.get_current),
+):
+    """Clear recorded subscription IPs for this user so they can open the subscription from another device (same link)."""
+    crud.clear_user_subscription_ips(db=db, user_id=dbuser.id)
+    logger.info(f'Subscription IPs cleared for user "{dbuser.username}"')
+    return dbuser
 
 
 @router.get("/users", response_model=UsersResponse, responses={400: responses._400, 403: responses._403, 404: responses._404})

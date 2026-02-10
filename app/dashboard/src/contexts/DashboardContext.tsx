@@ -49,6 +49,7 @@ type DashboardStateType = {
   isResetingAllUsage: boolean;
   resetUsageUser: User | null;
   revokeSubscriptionUser: User | null;
+  clearSubscriptionIpsUser: User | null;
   isEditingCore: boolean;
   onCreateUser: (isOpen: boolean) => void;
   onEditingUser: (user: User | null) => void;
@@ -68,6 +69,7 @@ type DashboardStateType = {
   onShowingNodesUsage: (isShowingNodesUsage: boolean) => void;
   resetDataUsage: (user: User) => Promise<void>;
   revokeSubscription: (user: User) => Promise<void>;
+  clearSubscriptionIps: (user: User) => Promise<void>;
 };
 
 const fetchUsers = (query: FilterType): Promise<User[]> => {
@@ -116,6 +118,7 @@ export const useDashboard = create(
     isShowingNodesUsage: false,
     resetUsageUser: null,
     revokeSubscriptionUser: null,
+    clearSubscriptionIpsUser: null,
     filters: {
       username: "",
       limit: getUsersPerPageLimitSize(),
@@ -207,6 +210,14 @@ export const useDashboard = create(
         method: "POST",
       }).then((user) => {
         set({ revokeSubscriptionUser: null, editingUser: user });
+        get().refetchUsers();
+      });
+    },
+    clearSubscriptionIps: (user) => {
+      return fetch(`/user/${user.username}/clear_subscription_ips`, {
+        method: "POST",
+      }).then((user) => {
+        set({ clearSubscriptionIpsUser: null, editingUser: user });
         get().refetchUsers();
       });
     },

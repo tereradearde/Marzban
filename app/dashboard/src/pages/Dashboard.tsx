@@ -10,6 +10,7 @@ import { NodesUsage } from "components/NodesUsage";
 import { QRCodeDialog } from "components/QRCodeDialog";
 import { ResetAllUsageModal } from "components/ResetAllUsageModal";
 import { ResetUserUsageModal } from "components/ResetUserUsageModal";
+import { ClearSubscriptionIpsModal } from "components/ClearSubscriptionIpsModal";
 import { RevokeSubscriptionModal } from "components/RevokeSubscriptionModal";
 import { UserDialog } from "components/UserDialog";
 import { UsersTable } from "components/UsersTable";
@@ -35,6 +36,7 @@ export const Dashboard: FC = () => {
         <HostsDialog />
         <ResetUserUsageModal />
         <RevokeSubscriptionModal />
+        <ClearSubscriptionIpsModal />
         <NodesDialog />
         <NodesUsage />
         <ResetAllUsageModal />

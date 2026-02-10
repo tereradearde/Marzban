@@ -615,15 +615,11 @@ def reset_user_by_next(db: Session, dbuser: User) -> User:
 def revoke_user_sub(db: Session, dbuser: User) -> User:
     """
     Revokes the subscription of a user and updates proxies settings.
-
-    Args:
-        db (Session): Database session.
-        dbuser (User): The user object whose subscription is to be revoked.
-
-    Returns:
-        User: The updated user object.
+    Also clears recorded subscription IPs so the user can activate from a new device.
     """
     dbuser.sub_revoked_at = datetime.utcnow()
+
+    db.execute(delete(UserSubscriptionIP).where(UserSubscriptionIP.user_id == dbuser.id))
 
     user = UserResponse.model_validate(dbuser)
     for proxy_type, settings in user.proxies.copy().items():
